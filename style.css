@@ -172,5 +172,9 @@ footer ul {
     .mb-1{
         margin-bottom: 0;
     }
+
+    .list{
+        padding:0;
+    }
 }
 /* /Bigger screens*/
