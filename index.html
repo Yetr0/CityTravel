@@ -4,20 +4,24 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>City Travel | Search for cities and attractions that are close by</title>
 </head>
 <body>
     <header>
-        <div>
-            <i class="material-icons">flight</i>
-            <p>City Travel</p>
-        </div>
+        <nav>
+            <i class="material-icons banner">flight</i>
+            <p class="banner">City Travel</p>
+        </nav>
+    </header>
         <main>
-            <section>
+            <section class="search">
                 <form>
-                    <input type="text">
-                    <input type="submit" value="Go">
-                    <ul>
+                    <div class="search-field">
+                        <input type="text">
+                        <input type="submit" value="Go">    
+                    </div>
+                    <ul class="list">
                         <li>
                             <input type="checkbox" value="Only weather" id="weather">
                             <label for="weather">Only weather</label>
@@ -33,7 +37,36 @@
                     </ul>
                 </form>
             </section>
+            <section id="response">
+                <p>Göteborg</p>
+                <section id="weather">
+                    <p>Current weather</p>
+                    <article>
+                        <p>Thursday</p>
+                        <p>Temperature: -2&deg;C</p>
+                        <p>Conditions: overcast clouds</p>
+                        <i class="material-icons">clouds</i>
+                    </article>
+                </section>
+                <section id="attractions">
+                    <article>
+                        <p>slottskogen</p>
+                        <i class="material-icons">camera_alt</i>
+                        <p>Address: Såldammsbacken, Göteborg</p>
+                    </article>
+                    <article>
+                        <p>Bhoga</p>
+                        <i class="material-icons">free_breakfast</i>
+                        <p>Address: Norra Hamngatan 10, Göteborg</p>
+                    </article>
+                    <article>
+                        <p>The Barn</p>
+                        <i class="material-icons">free_breakfast</i>
+                        <p>Address: Kyrkogatan 10, Göteborg</p>
+                    </article>
+                </section>
+
+            </section>
         </main>
-    </header>
 </body>
 </html>
