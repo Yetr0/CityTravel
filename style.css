@@ -174,7 +174,8 @@ footer ul {
     }
 
     .list{
-        padding:0;
+        padding-top:0;
+        padding-left: 1rem;
     }
 }
 /* /Bigger screens*/
