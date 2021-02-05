@@ -2,10 +2,38 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>City Travel | Search for cities and monuments that are close by</title>
+    <title>City Travel | Search for cities and attractions that are close by</title>
 </head>
 <body>
-    
+    <header>
+        <div>
+            <i class="material-icons">flight</i>
+            <p>City Travel</p>
+        </div>
+        <main>
+            <section>
+                <form>
+                    <input type="text">
+                    <input type="submit" value="Go">
+                    <ul>
+                        <li>
+                            <input type="checkbox" value="Only weather" id="weather">
+                            <label for="weather">Only weather</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" value="Only attractions" id="attractions">
+                            <label for="attractions">Only weather</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" value="filter alphabetically" id="filter">
+                            <label for="weather">Filter Alphabetically</label>
+                        </li>
+                    </ul>
+                </form>
+            </section>
+        </main>
+    </header>
 </body>
 </html>
