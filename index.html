@@ -8,65 +8,84 @@
     <title>City Travel | Search for cities and attractions that are close by</title>
 </head>
 <body>
-    <header>
+    <header id="header">
         <nav>
             <i class="material-icons banner">flight</i>
             <p class="banner">City Travel</p>
         </nav>
     </header>
         <main>
-            <section class="search">
-                <form>
-                    <div class="search-field">
-                        <input type="text">
-                        <input type="submit" value="Go">    
-                    </div>
-                    <ul class="list">
-                        <li>
-                            <input type="checkbox" value="Only weather" id="weather">
-                            <label for="weather">Only weather</label>
-                        </li>
-                        <li>
-                            <input type="checkbox" value="Only attractions" id="attractions">
-                            <label for="attractions">Only weather</label>
-                        </li>
-                        <li>
-                            <input type="checkbox" value="filter alphabetically" id="filter">
-                            <label for="weather">Filter Alphabetically</label>
-                        </li>
-                    </ul>
-                </form>
+            <section id="search-field">
+                        <ul>
+                            <input type="text" id="search-text">
+                            <button class="search-btn">Go</button>
+
+                            <ul class="list">
+                                <li>
+                                    <input type="checkbox" value="Only weather" id="weather">
+                                    <label for="weather">Only weather</label>
+                                </li>
+                                <li>
+                                    <input type="checkbox" value="Only attractions" id="attractions">
+                                    <label for="attractions">Only weather</label>
+                                </li>
+                                <li>
+                                    <input type="checkbox" value="filter alphabetically" id="filter">
+                                    <label for="weather">Filter Alphabetically</label>
+                                </li>
+                            </ul>
+                        </ul>
             </section>
             <section id="response">
-                <p>Göteborg</p>
+                <h1 id="city" class="p-1 center">Göteborg</h1>
                 <section id="weather">
-                    <p>Current weather</p>
-                    <article>
-                        <p>Thursday</p>
-                        <p>Temperature: -2&deg;C</p>
-                        <p>Conditions: overcast clouds</p>
-                        <i class="material-icons">clouds</i>
-                    </article>
+                    <h3 class="center">Current Weather</h3>
+                    <div class="m-auto w-75 center flex">
+                        <article class="t-center">
+                            <p>Thursday</p>
+                            <p>Temperature: -2&deg;C</p>
+                            <p>Conditions: overcast clouds</p>
+                            <i class="material-icons">clouds</i>
+                        </article>
+                    </div>
                 </section>
-                <section id="attractions">
-                    <article>
-                        <p>slottskogen</p>
-                        <i class="material-icons">camera_alt</i>
-                        <p>Address: Såldammsbacken, Göteborg</p>
-                    </article>
-                    <article>
-                        <p>Bhoga</p>
-                        <i class="material-icons">free_breakfast</i>
-                        <p>Address: Norra Hamngatan 10, Göteborg</p>
-                    </article>
-                    <article>
-                        <p>The Barn</p>
-                        <i class="material-icons">free_breakfast</i>
-                        <p>Address: Kyrkogatan 10, Göteborg</p>
-                    </article>
+                <section id="attractions" class="p-1 m-auto">
+                    <h3 class="center">Top Attractions</h3>
+                    <div class="m-auto w-75 center">
+                        <article class="t-center">
+                            <p>slottskogen</p>
+                            <i class="material-icons">camera_alt</i>
+                            <p>Address: Såldammsbacken, Göteborg</p>
+                        </article>
+                        <article class="t-center">
+                            <p>Bhoga</p>
+                            <i class="material-icons">free_breakfast</i>
+                            <p>Address: Norra Hamngatan 10, Göteborg</p>
+                        </article>
+                        <article class="t-center">
+                            <p>The Barn</p>
+                            <i class="material-icons">free_breakfast</i>
+                            <p>Address: Kyrkogatan 10, Göteborg</p>
+                        </article>
+                    </div>
                 </section>
 
             </section>
         </main>
+        <footer class="center d-flex space">
+            <div class="d-inline-b mb-1">
+                <div class="d-inline-f fs-20 center">
+                    <i class="material-icons d-inline-b">flight</i>
+                    <p class="d-inline-b">City Travel</p>
+                </div>
+                <p> We help you find cities and attractions that are close by</p>
+            </div>
+
+            <div class="d-inline-b">
+                <p class="pb-03">Search for cities or attractions</p>
+                <a class="btn rounded" href="#header">Make a new search</a>
+            </div>
+
+        </footer>
 </body>
 </html>
