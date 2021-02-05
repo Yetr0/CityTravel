@@ -102,8 +102,6 @@ footer ul {
     display: flex;
 }
 
-
-
 /* /Footer */
 
 /* Style classes*/
@@ -114,10 +112,6 @@ footer ul {
 
 .d-inline-b{
     display: inline-block;
-}
-
-.clear{
-    clear: both;
 }
 
 .p-1{
@@ -131,15 +125,6 @@ footer ul {
     border-radius: 20px;
 }
 
-.m-auto{
-    margin: auto;
-    justify-content: space-around;
-}
-
-.w-75{
-    width:75%;
-}
-
 .t-center{
     text-align: center;
 }
@@ -148,11 +133,6 @@ footer ul {
 .d-inline-f{
     display: inline-flex;
 }
-
-.d-inline-b-r{
-    display: inline-block;
-}
-
 
 .mb-1{
     margin-bottom: 1rem;
