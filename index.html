@@ -18,20 +18,20 @@
             <section id="search-field">
                         <ul>
                             <input type="text" placeholder="Stockholm" id="search-text" class="t-center">
-                            <button class="search-btn">Go</button>
+                            <button class="search-btn" id="btn">Go</button>
 
                             <ul class="list">
                                 <li>
-                                    <input type="checkbox" value="Only weather" id="weather">
-                                    <label for="weather">Only weather</label>
+                                    <input type="checkbox" name="filter" value="Only weather" id="fWeather">
+                                    <label for="fWeather">Only weather</label>
                                 </li>
                                 <li>
-                                    <input type="checkbox" value="Only attractions" id="attractions">
-                                    <label for="attractions">Only weather</label>
+                                    <input type="checkbox" name="filter" value="Only attractions" id="fAttrac">
+                                    <label for="fAttrac">Only Attractions</label>
                                 </li>
                                 <li>
-                                    <input type="checkbox" value="filter alphabetically" id="filter">
-                                    <label for="weather">Filter Alphabetically</label>
+                                    <input type="checkbox" name="filter" value="filter alphabetically" id="fAlpha">
+                                    <label for="fAlpha">Filter Alphabetically</label>
                                 </li>
                             </ul>
                         </ul>
@@ -88,4 +88,5 @@
 
         </footer>
 </body>
+<script src="code.js"></script>
 </html>
