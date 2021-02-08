@@ -79,13 +79,30 @@ function renderAttractions(attractions){
         <article class="t-center">
             <p>`+attractions[i].venue.name+`</p>
             <i class="material-icons">free_breakfast</i>
-            <a href="http://www.google.com/maps/place/` + attractions[i].venue.location.address + ", " + attractions[i].venue.location.city + `">Address: `+attractions[i].venue.location.address+`</a>
+            <a ` + addresssrc(attractions[i].venue.location.address, attractions[i].venue.location.city) + `>Address: `+address(attractions[i].venue.location.address)+`</a>
         </article>
         `;
     }
     let city = searchText.value[0].toUpperCase() + searchText.value.slice(1).toLowerCase();
     document.getElementById("city").innerText = city;
     document.getElementById("attractionsResponse").innerHTML = attractionHtml;
+}
+
+function addresssrc(address, city){
+    if (address == undefined){
+        return "";
+    }
+    else{
+        return 'href="http://www.google.com/maps/place/' + address + "," + city + "\"";
+    }
+}
+function address (address){
+    if(address == undefined){
+        return "unknown";
+    }
+    else{
+        return address;
+    }
 }
 
 function renderWeather(weather){
