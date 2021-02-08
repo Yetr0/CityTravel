@@ -1,10 +1,11 @@
 const button = document.getElementById("btn");
-const Attractions = document.getElementById("attractionsResponse");
-const WeatherR = document.getElementById("weatherResponse");
+let Attractions = document.getElementById("attractions");
+let Weather = document.getElementById("weather");
 let searchText = document.getElementById("search-text");
 let attractions = false;
-let Weather = false;
-let Alphabetically = false;
+let weather = false;
+let alphabetically = false;
+let PrevSearch = "";
 
 
 document.getElementById("fAttrac").onclick = function(){
@@ -12,39 +13,65 @@ document.getElementById("fAttrac").onclick = function(){
 }
 
 document.getElementById("fWeather").onclick = function(){
-    Weather = Switch(Weather);
+    weather = Switch(weather);
 }
 
 document.getElementById("fAlpha").onclick = function(){
-    Alphabetically = Switch(Alphabetically);
+    alphabetically = Switch(alphabetically);
 }
 
 function Switch(value){
     return value ? false : true;
 }
 
+function prevSearch(){
+    if(PrevSearch == ""){
+        PrevSearch = searchText.value;
+        return true;
+    }
+    else if(PrevSearch != searchText.value){
+        PrevSearch = searchText.value;
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
 button.onclick = async function(){
     try {
-        let attractions = await getAttractions();
-        let weather = await getWeather();
-        console.log(attractions);
-        console.log(weather);
-        renderResult(attractions);
+        let attractions;
+        let weather;
+        if(prevSearch()){
+            attractions = await getAttractions();
+            weather = await getWeather();
+            renderAttractions(attractions);
+            renderWeather(weather);
+        }
+        viewResult();
         }
         catch(error) { 
             // Visa felmeddelande för användare 
           }  
 }
-/*<article class="t-center">
-                            <p>Thursday</p>
-                            <p>Temperature: -2&deg;C</p>
-                            <p>Conditions: overcast clouds</p>
-                            <i class="material-icons">clouds</i>
-                        </article> */
 
+function viewResult(){
+    if(weather == true && attractions == false){
+        Weather.style.display = "block";
+        Attractions.style.display = "none";
+    }
+    else if(attractions == true && weather == false){
+        Attractions.style.display = "block";
+        Weather.style.display = "none";
+    }
+    else{
+        Attractions.style.display = "block";
+        Weather.style.display = "block";
+    }
 
+}
 
-function renderResult(attractions){
+function renderAttractions(attractions){
     let attractionHtml = "";
     for(let i = 0; i < attractions.length; i++){
         attractionHtml += 
@@ -56,27 +83,31 @@ function renderResult(attractions){
         </article>
         `;
     }
-    /*let weatherHtml = 
-    `
+    let city = searchText.value[0].toUpperCase() + searchText.value.slice(1).toLowerCase();
+    document.getElementById("city").innerText = city;
+    document.getElementById("attractionsResponse").innerHTML = attractionHtml;
+}
+
+function renderWeather(weather){
+    let weatherHtml =
+    ` 
     <article class="t-center">
         <p>` + "söndag" + `</p>
         <p>Temperature: ` + Math.round(weather.main.temp) + `&deg;C</p>
         <p>Conditions: ` + weather.weather[0].main + `</p>
         <i class="material-icons">` + getIcon(weather.weather[0].main) + `</i>
     </article>
-    `;*/
-    let city = searchText.value[0].toUpperCase() + searchText.value.slice(1).toLowerCase();
-    document.getElementById("city").innerText = city;
-    //document.getElementById("weatherResponse").innerHTML = weatherHtml;
-    document.getElementById("attractionsResponse").innerHTML = attractionHtml;
-    document.getElementById("response").style.visibility = "visible";
+    `;
+    document.getElementById("weatherResponse").innerHTML = weatherHtml;
 }
 
 
 function getIcon(icon){
     switch(icon){
         case "Clear":
-            return "sun";
+            return "brightness_low";
+        case "Clouds": 
+            return "clouds";
     }
 }
 

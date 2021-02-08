@@ -87,15 +87,16 @@ nav{
 /*Response output*/
 #response{
     padding:2rem;
-    visibility: hidden;
     border-top:2px solid black;
 }
 #weather{
+    display:none;
     padding:1rem;
     border-top: 1px solid black;
-    border-bottom: 1px solid black;
 }
 #attractions{
+    display: none;
+    border-top: 1px solid black;
     padding:1rem;
 }
 article{
