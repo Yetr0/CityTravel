@@ -26,7 +26,9 @@ function Switch(value){
 button.onclick = async function(){
     try {
         let attractions = await getAttractions();
+        let weather = await getWeather();
         console.log(attractions);
+        console.log(weather);
         renderResult(attractions);
         }
         catch(error) { 
@@ -79,12 +81,15 @@ function getIcon(icon){
 }
 
 
-async function getData(urlToFetch){
-    let url = "";
- if(urlToFetch == 2){
-        url = "https://api.openweathermap.org/data/2.5/weather?&appid=9a3257c2a89bd42ca6b24b5df46f8def&units=metric&q=";
-    }
-        const response = await fetch(url + text); 
+async function getWeather(){
+    let url = "https://api.openweathermap.org/data/2.5/weather?&appid=9a3257c2a89bd42ca6b24b5df46f8def&units=metric&q=";
+    let text = getSearchText(); 
+    const response = await fetch(url + text);
+    if(response.ok){
+        const jsonResponse = await response.json();
+        console.log(jsonResponse);
+        return jsonResponse;
+    } 
 }
 
 async function getAttractions(){
