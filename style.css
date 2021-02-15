@@ -177,9 +177,6 @@ footer ul {
 
 /*Bigger screens*/
 @media screen and (min-width:900px){
-    .center{
-        text-align: left;
-    }
     .d-flex{
         display: flex;
     }

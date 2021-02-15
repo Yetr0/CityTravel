@@ -125,6 +125,8 @@ function getIcon(icon){
             return "brightness_low";
         case "Clouds": 
             return "clouds";
+        case "Snow":
+            return "ac_unit";
     }
 }
 
