@@ -12,7 +12,7 @@ let unsortedAttractions;
 let sortedAttractions;
 let failed = false;
 
-
+//byter mellan true och false.
 document.getElementById("fAttrac").onclick = function(){
     attractions = Switch(attractions);
 }
@@ -29,6 +29,7 @@ function Switch(value){
     return value ? false : true;
 }
 
+//ser ifall användaren söker på samma stad igen och kan skippa att skicka en request till apierna igen.
 function prevSearch(){
     if(PrevSearch == ""){
         PrevSearch = searchText.value;
@@ -48,6 +49,7 @@ button.onclick = async function(){
         let attractions;
         let weather;
         if(prevSearch()){
+            //Här kommuncierar jag me två olika servrar för att få sevärdheter och väder för den plats som angetts.
             attractions = await getAttractions();
             weather = await getWeather();
             if(attractions != null && weather != null){
@@ -71,6 +73,7 @@ button.onclick = async function(){
                 unsortedAttractions = null;
             }
         }
+        //filtrerar sevärdheter.
         if(alphabetically && sortedAttractions != null && weatherRespone.innerText != ""){
             renderAttractions(sortedAttractions);
         }
@@ -80,6 +83,7 @@ button.onclick = async function(){
             viewResult();
         }
         catch(error) {
+            //ifall någon av apierna är nere så är servicen nere.
             document.getElementById("failed").style.display = "block";
             document.getElementById("city").innerText = "";
             Weather.style.display = "none";
@@ -125,6 +129,7 @@ function sort(array){
 }
 
 function renderAttractions(attractions){
+    //genererar html för de olika sevärdheterna.
     let attractionHtml = "";
     for(let i = 0; i < attractions.length; i++){
         attractionHtml += 
@@ -136,15 +141,15 @@ function renderAttractions(attractions){
         </article>
         `;
     }
-    let city = searchText.value[0].toUpperCase() + searchText.value.slice(1).toLowerCase();
-    document.getElementById("city").innerText = city;
     attractionsResponse.innerHTML = attractionHtml;
 }
 
 function addressSrc(address, city){
+    //om inte adressen finns så returneras ingen länk.
     if (address == undefined){
         return "";
     }
+    //finns det en adress så returneras en länk till google maps.
     else{
         return 'href="http://www.google.com/maps/place/' + address + "," + city + "\"";
     }
@@ -152,9 +157,11 @@ function addressSrc(address, city){
 
 
 function address (address){
+    //om inte addressen finns så returneras unknown.
     if(address == undefined){
         return "unknown";
     }
+    //finns den så returneras den.
     else{
         return address;
     }
@@ -173,7 +180,7 @@ function renderWeather(weather){
     weatherRespone.innerHTML = weatherHtml;
 }
 
-//wb_sunny
+//returnerar en ikon för vädret.
 function getIcon(icon){
     switch(icon){
         case "Clear":
@@ -191,12 +198,15 @@ function getIcon(icon){
 async function getWeather(){
     let url = "https://api.openweathermap.org/data/2.5/weather?&appid=9a3257c2a89bd42ca6b24b5df46f8def&units=metric&q=";
     let text = getSearchText();
+    //Här kommunicerar jag med väder api:n genom fetch. Jag lägger till staden som användaren söker efter till url:en, sen skickar jag en get request.
         const response = await fetch(url + text);
+        //om statusen för svaret är 200 så returnerar den svaret. 
         if(response.ok){
             const jsonResponse = await response.json();
             return jsonResponse;
         }
-        if(!response.bodyUsed){
+        //är inte statusen för svaret 200 och svaret inte innehåller någon kropp så returneras null.
+        else if(!response.bodyUsed){
             return null;
         }
 }
@@ -205,17 +215,21 @@ async function getAttractions(){
 
     let url = "https://api.foursquare.com/v2/venues/explore?client_id=FXTNTHIH1BQTKGZUKJ0UU0OGN2O3XBP5TBSLSPRA1RRHPDX3&client_secret=XKW2GPRCYGAMSTT24W15BWCGK01LVG23JAYG33BRFNMYNSFM&v=20210207&limit=10&near=";
     let text = getSearchText();
+    //Här kommunicerar jag med sevärdhets api:n genom fetch. Jag lägger till staden som användaren söker efter till url:en, sen skickar jag en get request.
     const response = await fetch(url + text);
+     //om statusen för svaret är 200 så returnerar den en lista av alla sevärdheter.
     if (response.ok) { 
         const jsonResponse = await response.json();
             return jsonResponse.response.groups[0].items; 
     }
+    //är inte statusen för svaret 200 och svaret inte innehåller någon kropp så returneras null.
     else if(!response.bodyUsed) {
         return null
         }
 }
-
+//tar texten i sökfältet 
 function getSearchText(){
+    //tar bort "&" ifall det finns så att inte användaren kan använda andra parametrar.
     if(searchText.value.includes("&")){
         let text = searchText.value.replace("&","");
         searchText.value = text;
