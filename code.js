@@ -62,18 +62,19 @@ button.onclick = async function(){
                 document.getElementById("city").innerText = `${searchText.value[0].toUpperCase() + searchText.value.slice(1).toLowerCase()} doesn't exist`;
             }
             unsortedAttractions = attractions;
-            console.log(unsortedAttractions);
             try{
                 sortedAttractions = Array.from(attractions);
                 sort(sortedAttractions);
             }
             catch{
+                sortedAttractions = null;
+                unsortedAttractions = null;
             }
         }
         if(alphabetically && sortedAttractions != null && weatherRespone.innerText != ""){
             renderAttractions(sortedAttractions);
         }
-        else if(!alphabetically && unsortedAttractions != null){
+        else if(!alphabetically && unsortedAttractions != null && weatherRespone.innerText != ""){
             renderAttractions(unsortedAttractions);
         }
             viewResult();
@@ -83,7 +84,10 @@ button.onclick = async function(){
             document.getElementById("city").innerText = "";
             Weather.style.display = "none";
             Attractions.style.display = "none";
-            failed = false;
+            sortedAttractions = null;
+            unsortedAttractions = null;
+            document.getElementById("attractionsResponse").innerHTML = "";
+                document.getElementById("weatherResponse").innerHTML = "";
           }  
 }
 
@@ -190,7 +194,6 @@ async function getWeather(){
         const response = await fetch(url + text);
         if(response.ok){
             const jsonResponse = await response.json();
-            console.log(jsonResponse);
             return jsonResponse;
         }
         if(!response.bodyUsed){
@@ -205,7 +208,6 @@ async function getAttractions(){
     const response = await fetch(url + text);
     if (response.ok) { 
         const jsonResponse = await response.json();
-        console.log(jsonResponse.response.groups[0].items);
             return jsonResponse.response.groups[0].items; 
     }
     else if(!response.bodyUsed) {
