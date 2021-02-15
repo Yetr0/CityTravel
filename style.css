@@ -89,6 +89,9 @@ nav{
     padding:2rem;
     border-top:2px solid black;
 }
+#failed{
+    display: none;
+}
 #weather{
     display:none;
     padding:1rem;

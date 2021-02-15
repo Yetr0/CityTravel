@@ -6,6 +6,9 @@ let attractions = false;
 let weather = false;
 let alphabetically = false;
 let PrevSearch = "";
+let failed = false;
+let weatherRespone = false;
+let attractionResponse = false;
 
 
 document.getElementById("fAttrac").onclick = function(){
@@ -48,10 +51,12 @@ button.onclick = async function(){
             renderAttractions(attractions);
             renderWeather(weather);
         }
-        viewResult();
+        if(attractionResponse && weatherRespone){
+            viewResult();
         }
-        catch(error) { 
-            // Visa felmeddelande för användare 
+        }
+        catch(error) {
+            document.getElementById("failed").style.display = "block";
           }  
 }
 
@@ -79,7 +84,7 @@ function renderAttractions(attractions){
         <article class="t-center">
             <p>`+attractions[i].venue.name+`</p>
             <i class="material-icons">free_breakfast</i>
-            <a ` + addresssrc(attractions[i].venue.location.address, attractions[i].venue.location.city) + `>Address: `+address(attractions[i].venue.location.address)+`</a>
+            <a ` + addressSrc(attractions[i].venue.location.address, attractions[i].venue.location.city) + `>Address: `+address(attractions[i].venue.location.address)+`</a>
         </article>
         `;
     }
@@ -88,7 +93,7 @@ function renderAttractions(attractions){
     document.getElementById("attractionsResponse").innerHTML = attractionHtml;
 }
 
-function addresssrc(address, city){
+function addressSrc(address, city){
     if (address == undefined){
         return "";
     }
@@ -118,26 +123,33 @@ function renderWeather(weather){
     document.getElementById("weatherResponse").innerHTML = weatherHtml;
 }
 
-
+//wb_sunny
 function getIcon(icon){
     switch(icon){
         case "Clear":
-            return "brightness_low";
+            return "wb_sunny";
         case "Clouds": 
             return "clouds";
+        case "Snow":
+            return "ac_unit";
+        case "Rain":
+            return "grain";
     }
 }
 
 
 async function getWeather(){
     let url = "https://api.openweathermap.org/data/2.5/weather?&appid=9a3257c2a89bd42ca6b24b5df46f8def&units=metric&q=";
-    let text = getSearchText(); 
-    const response = await fetch(url + text);
-    if(response.ok){
-        const jsonResponse = await response.json();
-        console.log(jsonResponse);
-        return jsonResponse;
-    } 
+    let text = getSearchText();
+        const response = await fetch(url + text);
+        if(response.ok){
+            const jsonResponse = await response.json();
+            weatherRespone = true;
+            return jsonResponse;
+        }
+        else{
+            weatherRespone = false;
+        }
 }
 
 async function getAttractions(){
@@ -147,12 +159,11 @@ async function getAttractions(){
     const response = await fetch(url + text);
     if (response.ok) { 
         const jsonResponse = await response.json();
-        console.log(jsonResponse);
-            let attractions = jsonResponse.response.groups[0].items; 
-          return attractions;
+        attractionResponse = true;
+            return jsonResponse.response.groups[0].items; 
     }
     else {
-        alert("Something went wrong"); 
+        attractionResponse = false;
         }
 }
 
