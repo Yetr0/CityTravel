@@ -8,6 +8,9 @@ let attractions = false;
 let weather = false;
 let alphabetically = false;
 let PrevSearch = "";
+let unsortedAttractions;
+let sortedAttractions;
+let failed = false;
 
 
 document.getElementById("fAttrac").onclick = function(){
@@ -49,9 +52,8 @@ button.onclick = async function(){
             weather = await getWeather();
             if(attractions != null && weather != null){
                 document.getElementById("city").innerText = searchText.value[0].toUpperCase() + searchText.value.slice(1).toLowerCase();
-                renderAttractions(attractions);
-                renderWeather(weather);
                 document.getElementById("failed").style.display = "none";
+                renderWeather(weather);
             }
             else{
                 document.getElementById("attractionsResponse").innerHTML = "";
@@ -59,6 +61,20 @@ button.onclick = async function(){
                 document.getElementById("failed").style.display = "none";
                 document.getElementById("city").innerText = `${searchText.value[0].toUpperCase() + searchText.value.slice(1).toLowerCase()} doesn't exist`;
             }
+            unsortedAttractions = attractions;
+            console.log(unsortedAttractions);
+            try{
+                sortedAttractions = Array.from(attractions);
+                sort(sortedAttractions);
+            }
+            catch{
+            }
+        }
+        if(alphabetically && sortedAttractions != null && weatherRespone.innerText != ""){
+            renderAttractions(sortedAttractions);
+        }
+        else if(!alphabetically && unsortedAttractions != null){
+            renderAttractions(unsortedAttractions);
         }
             viewResult();
         }
@@ -67,6 +83,7 @@ button.onclick = async function(){
             document.getElementById("city").innerText = "";
             Weather.style.display = "none";
             Attractions.style.display = "none";
+            failed = false;
           }  
 }
 
@@ -88,6 +105,19 @@ function viewResult(){
         Weather.style.display = "none";
     }
 
+}
+
+function sort(array){
+    try{
+        array.sort(function(a, b){
+            if(a.venue.name[0].toUpperCase() < b.venue.name[0].toUpperCase()) { return -1; }
+            if(a.venue.name[0].toUpperCase() > b.venue.name[0].toUpperCase()) { return 1; }
+            return 0;
+        })
+    }
+    catch{
+
+    }
 }
 
 function renderAttractions(attractions){
@@ -175,6 +205,7 @@ async function getAttractions(){
     const response = await fetch(url + text);
     if (response.ok) { 
         const jsonResponse = await response.json();
+        console.log(jsonResponse.response.groups[0].items);
             return jsonResponse.response.groups[0].items; 
     }
     else if(!response.bodyUsed) {
